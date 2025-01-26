@@ -1,0 +1,343 @@
+/* General Styling */
+body {
+  font-family: 'Georgia', serif;
+  background-color: #f4f4f4; /* Light grey background for a vintage look */
+  color: #333; /* Dark grey text for readability */
+}
+
+/* Navbar Styling */
+.navbar {
+  background-color: #5d7a8d; /* Vintage blue background */
+  border-bottom: 2px solid #3c4f5e; /* Darker blue border for a vintage touch */
+}
+
+.navbar-brand {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: #ffffff; /* White text for contrast */
+}
+
+.navbar-brand:hover {
+  color: #d0d0d0; /* Light grey on hover */
+}
+
+/* Button Styling */
+.btn {
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 1px solid #8d9e9a; /* Blue border */
+  color: #ffffff; /* White text */
+  background-color: #95cbf0; /* Blue button background */
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  text-shadow: 1px 1px 1px #333; /* Subtle text shadow */
+}
+
+.btn:hover {
+  background-color: #3c4f5e; /* Darker blue on hover */
+  border-color: #3c4f5e;
+  color: #ffffff;
+}
+
+/* Form Inputs */
+input, textarea, select {
+  font-family: 'Georgia', serif;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5rem;
+  background-color: #ffffff; /* White background */
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #5d7a8d; /* Focus outline in blue */
+  box-shadow: 0 0 5px rgba(93, 122, 141, 0.5);
+}
+
+/* Links */
+a {
+  color: #5d7a8d; /* Blue links */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #3c4f5e; /* Darker blue on hover */
+}
+
+
+/* Deep Dream Page Styling */
+.deep-dream-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.form-section {
+  flex: 1;
+  max-width: 50%;
+}
+
+.form-section h1 {
+  font-size: 2rem;
+  color: #3c4f5e; /* Dark blue */
+}
+
+.form-section input[type="checkbox"] {
+  width: auto; /* Prevent the radio button from taking the full width */
+  display: inline-block; /* Display inline to keep it next to the label */
+  margin-right: 5px; /* Add some space between the radio button and the label */
+}
+
+.form-section input, .form-section select, .form-section button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 1rem;
+}
+.image-section {
+  flex: 1;
+  max-width: 40%;
+  text-align: center;
+  display: block; /* Ensure it's a block-level element */
+}
+
+.image-section img {
+  display: block; /* Prevent inline alignment issues */
+  margin: 0 auto; /* Center the image */
+  max-width: 90%; /* Allow the image to be slightly wider within the container */
+  height: 400px; /* Set a fixed height for the image to make it longer */
+  object-fit: cover; /* Ensure the image covers the area while maintaining aspect ratio */
+  border: 2px solid #ddd; /* Add a subtle border */
+  border-radius: 10px; /* Round the corners */
+}
+
+.delete-button {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px; /* Add space between the image and the delete button */
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}
+
+.spaced-link {
+  margin-right: 50px; /* Add space between links */
+  text-decoration: none; /* Optional: Remove underline */
+  color: #5d7a8d; /* Optional: Add your link color */
+}
+
+.spaced-link:last-child {
+  margin-right: 0; /* Remove margin from the last link */
+}
+
+
+
+
+
+
+
+
+
+
+/* Page title styles */
+.page-title {
+  text-align: center; /* Center the title */
+  font-size: 2em; /* Increase font size for visibility */
+  margin: 20px 0; /* Add space above and below the title */
+  color:black; /* Dark color for contrast */
+}
+
+
+/* General reset for box-sizing */
+* {
+  box-sizing: border-box;
+}
+
+/* Profile container styles */
+.profile-container {
+  margin: 0 auto; /* Center the container */
+  padding: 20px; /* Padding around the content */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 8px; /* Slightly rounded corners */
+  background-color: rgba(249, 249, 249, 0.5); /* Light background color with increased transparency */
+  position: relative; /* Position relative for absolute positioning of image */
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Containers */
+.container {
+  background-color: rgba(249, 249, 249, 0.5); /* Light background color with increased transparency */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Title styles 
+.profile-title {
+  text-align: center;
+  margin-bottom: 20px; 
+  color:black;
+}*/
+
+/* Importing Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+
+/* Applying the ancient-looking font */
+.ancient-text {
+    font-family: 'Cinzel', serif; /* Use the Cinzel font */
+    font-weight: bold; /* Make the text bold */
+    font-size: 24px; /* Adjust size as needed */
+    letter-spacing: 1px; /* Optional: Add some letter spacing for effect */
+    text-align: center; /* Center the title */
+    margin-bottom: 20px; /* Space below the title */
+    color:black;
+    text-transform: uppercase; /* Optional: Make text uppercase for a more dramatic effect */
+}
+
+
+/* Profile image styles */
+.profile-image-container {
+  position: absolute; /* Position image container absolutely */
+  top: 20px; /* Distance from the top */
+  right: 20px; /* Distance from the right */
+}
+
+.profile-image {
+  width: 150px; /* Set fixed width for a square shape */
+  height: 150px; /* Set fixed height for a square shape */
+  border-radius: 8px; /* Slightly rounded corners for the square */
+  border: 3px solid #ddd; /* Add a thicker border around the image */
+}
+
+/* Profile information styles */
+.profile-info {
+  text-align: left; /* Align text to the left */
+}
+
+/* Link styles */
+.go-back {
+  display: inline-block; /* Make link inline-block */
+  margin-top: 20px; /* Space above the link */
+  color: #007BFF; /* Link color */
+  text-decoration: none; /* Remove underline */
+}
+
+.go-back:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .profile-container {
+      padding: 10px; /* Less padding on small screens */
+  }
+  
+  .profile-title {
+      font-size: 1.5em; /* Slightly smaller title */
+  }
+  
+  .profile-image-container {
+      top: 10px; /* Adjust image position */
+      right: 10px; /* Adjust image position */
+  }
+  
+  .profile-image {
+      width: 100px; /* Smaller image on small screens */
+      height: 100px; /* Smaller image on small screens */
+  }
+}
+
+
+
+
+/* Specific styles for the Phytochemical Query form */
+#phytochemical-query-form {
+  background: white; /* White background for the form */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  max-width: 80%; /* Set width relative to parent, adjust as needed */
+  margin: 20px auto; /* Center the form with auto margins */
+}
+
+.query-label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold; /* Make label text bold */
+}
+
+.query-input {
+  width: 100%; /* Full width input */
+  padding: 10px;
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 5px; /* Rounded corners */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.query-button {
+  background-color: #3c4f5e; /* Dark blue button */
+  color: white; /* White text */
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px; /* Space above button */
+  font-size: 1rem; /* Font size */
+}
+
+/* Results Box Styling */
+.results-box {
+  background: white; /* White background for the results box */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  max-width: 80%; /* Set width relative to parent, adjust as needed */
+  margin: 20px auto; /* Space around the results box and center it */
+}
+
+.results-box h3 {
+  margin-top: 0; /* Remove top margin for the results heading */
+}
+
+.results-box ul {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove padding */
+}
+
+.results-box ul li {
+  background: #e9ecef; /* Light gray background for list items */
+  margin: 5px 0; /* Space between items */
+  padding: 10px; /* Padding inside list items */
+  border-radius: 5px; /* Rounded corners */
+}
+
+#scent-form {
+  background: white; /* White background for the form */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  max-width: 80%; /* Set width relative to parent, adjust as needed */
+  margin: 20px auto; /* Center the form with auto margins */
+}
+
+/* Specific styles for the Phytochemical Query form */
+#phytochemical-form {
+  background: white; /* White background for the form */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  max-width: 80%; /* Set width relative to parent, adjust as needed */
+  margin: 20px auto; /* Center the form with auto margins */
+}

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}Specify Phytochemicals{% endblock %}
+
+{% block content %}
+<h2 class="page-title">Specify Phytochemicals</h2>
+<form method="POST" action="/scent/phytochemicals" id="phytochemical-form" autocomplete="off">
+    <label for="phytochemicals" class="query-label">Enter Phytochemicals (comma-separated):</label>
+    <input type="text" name="phytochemicals" id="phytochemicals" placeholder="e.g., Quercetin, Myrcene" class="query-input"><br><br>
+
+    <button type="submit" class="query-button">Submit</button>
+</form>
+
+{% if phytochemical_details %}
+<div id="results-box" class="results-box">
+    <h3>Phytochemical Details:</h3>
+    <ul>
+        {% for detail in phytochemical_details %}
+        <li>{{ detail }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endblock %}

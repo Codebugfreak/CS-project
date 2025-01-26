@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+
+
+{% block content %}
+  
+  <div class="page-title">
+    <strong><h1>Build Your Scent</h1></strong>
+  </div>
+
+  <div>
+  {% if birthday %}
+    <script>
+        alert("{{ birthday }}");
+    </script>
+  {% endif %}
+  
+  {% if 'user_name' in session %}
+    <div style="text-align: center;">
+      <a href="/profile" class="btn btn-primary">View Profile</a>
+      <a href="/deep_dream" class="btn btn-secondary">Visualize concept</a>
+      <a href="/phytochemical" class="btn btn-warning">Search Phytochemical</a>
+      <a href="/scent" class="btn btn-info">Create scent</a>
+      <a href="/logout" class="btn btn-danger">Logout</a>
+    </div>
+    <div>
+      <pre>
+
+      </pre>
+    <i><b><p>Hello ,{{session['user_name']}}!</p></b></i>
+    </div>
+    <i><b><p>Welcome to Nature's Craft, your ultimate platform for exploring the wonders of phytochemistry, designing stunning brand identities, and crafting natural care solutions! Whether you're a seasoned formulator, an aspiring entrepreneur, or a curious enthusiast, our app is your gateway to a world of innovation and creativity.</p></b></ii>
+    
+  {% else %}
+        <a href="/register" class="spaced-link">Register</a>
+        <a href="/login" class="spaced-link">Login</a>
+  </div>
+  {% endif %}
+{% endblock %}
+

@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}Scent Creator{% endblock %}
+
+{% block content %}
+    <h2 class="page-title">Create Your Custom Scent</h2>
+    <form method="POST" action="/scent" id="scent-form">
+        <label for="product_type" class="query-label">Choose a Product Type:</label>
+        <select name="product_type" id="product_type" required class="query-input">
+            <option value="natural cream">Natural Cream</option>
+            <option value="perfume">Perfume</option>
+            <option value="perfume oil">Perfume Oil</option>
+            <option value="hair growth cream">Hair Growth Cream</option>
+        </select><br><br>
+
+        <label for="ingredients" class="query-label">Enter Ingredients (comma-separated):</label>
+        <input type="text" name="ingredients" id="ingredients" placeholder="e.g., Ginger Oil, Clove Oil" class="query-input"><br><br>
+
+        <button type="submit" class="query-button">Submit</button>
+    </form>
+
+    {% if ingredients %}
+        <div id="results-box" class="results-box">
+            
+            <p><strong>Product Type:</strong> {{ product_type }}</p>
+            <ul>
+                <li><strong>Ingredients:</strong> {{ ingredients }}</li>
+                <li><strong>Suggested Formulation:</strong> {{ suggested_formulation }}</li>
+                <li><strong>Compatibility Score:</strong> {{ compatibility_score }}</li>
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

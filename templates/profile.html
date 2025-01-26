@@ -1,0 +1,24 @@
+
+{% extends "layout.html" %}
+{% block title %}Profile{% endblock %}
+
+
+{% block content %}
+  <h2 class="ancient-text">Your Profile</h2>
+
+  <div class="profile-container">
+    <div class="profile-image-container">
+      <img class="profile-image" src="{{ profile_pic }}" alt="Profile Picture">
+    </div>
+
+    <div class="profile-info">
+      <p><strong>Username:</strong> {{ user_name }}</p>
+      <p><strong>Email:</strong> {{ email }}</p>
+      <p><strong>Birthday:</strong> {{ birthday }}</p>
+      <p><strong>Bio:</strong> {{ bio }}</p>
+      <p><strong>Account Created On:</strong> {{ created_at }}</p>
+      <p><strong>Last Updated On:</strong> {{ updated_at }}</p>
+      <a class="go-back" href="/">Go Back</a>
+    </div>
+  </div>
+{% endblock %}

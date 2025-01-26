@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Phytochemical Query{% endblock %}
+
+{% block content %}
+    <h2 class="page-title">Phytochemical Query</h2>
+    <form autocomplete="off" method="POST" action="/phytochemical" id="phytochemical-query-form">
+        <label for="query" class="query-label">Enter a Phytochemical Name or SMILES:</label>
+        <input type="text" name="query" id="query" class="query-input" required>
+        <button type="submit" class="query-button">Search</button>
+    </form>
+
+    {% if compound_info %}
+        <div id="results-box" class="results-box">
+            
+            <p><strong>IUPAC Name:</strong> {{ compound_info.iupac_name }}</p>
+            <p><strong>Molecular Formula:</strong> {{ compound_info.molecular_formula }}</p>
+            <p><strong>Canonical SMILES:</strong> {{ compound_info.canonical_smiles }}</p>
+            <p><strong>Classification:</strong> {{ classification }}</p>
+            <h4 style="text-decoration: underline;">Structural Analysis</h4>
+            <ul>
+                <li><strong>Atom Counts:</strong> {{ parsed_data.atom_counts }}</li>
+                <li><strong>Bond Counts:</strong> {{ parsed_data.bond_counts }}</li>
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

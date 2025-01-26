@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+{% block title %}Deep Dream{% endblock %}
+
+
+{% block content %}
+<h1 class="page-title">Deep Dream Generator</h1>
+    <div class="deep-dream-container">
+        <div class="form-section">
+            <form autocomplete="off" autofocus method="POST" enctype="multipart/form-data">
+                <label for="image">Upload an image:</label>
+                <input type="file" name="image" id="image" required><br><br>
+
+                <label for="model_name">Model:</label>
+                <select name="model_name" id="model_name" onchange="updateLayerOptions()" required>
+                    <option value="" disabled selected>Select a model</option>
+                    <option value="InceptionV3">InceptionV3</option>
+                    <option value="VGG16">VGG16</option>
+                    <option value="ResNet50">ResNet50</option>
+                </select><br><br>
+
+                <label for="layer_name">Layer:</label>
+                <select name="layer_name" id="layer_name">
+                    <option value=""> Select a model first</option>
+
+                </select><br><br>
+
+                <label for="gradient_multiplier">Gradient Multiplier:</label>
+                <input type="number" step="0.01" name="gradient_multiplier" id="gradient_multiplier" value="0.01"><br><br>
+
+                <label for="iterations">Number of Iterations:</label>
+                <input type="number" name="iterations" id="iterations" value="1"><br><br>
+
+                <label for="apply_filter">Apply Filter:</label>
+                <select name="apply_filter" id="apply_filter">
+                    <option value="">None</option>
+                    <option value="sepia">Sepia</option>
+                    <option value="grayscale">Grayscale</option>
+                </select><br><br>
+
+                <div class="form-section">
+                    <label for="animation">
+                        Generate Animation <input type="checkbox" name="animation" id="animation"> 
+                    </label><br><br>
+                </div>
+
+                <button type="submit" class="btn">Generate Deep Dream</button>
+            </form>
+        </div>
+        {% if output_path %}
+        <div class="image-section">
+            <h4>Generated Result:</h4>
+            <div>
+                <img src="{{ url_for('static', filename=output_path.split('static/')[-1]) }}" 
+                    alt="Deep Dream {{ 'Animation' if output_path.endswith('.gif') else 'Image' }}" 
+                    class="dream-image">
+            </div>
+            <div>
+                <form method="POST" action="{{ url_for('delete_image') }}">
+                    <input type="hidden" name="image_path" value="{{ output_path }}">
+                    <button type="submit" class="delete-button">Delete Image</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <script id="metadata-data" type="application/json">
+        {{ metadata|tojson }}
+    </script>
+
+    <script>
+        const metaData = JSON.parse(document.getElementById("metadata-data").textContent);
+
+        function updateLayerOptions() {
+            console.log("Updating layer options...");
+            const model = document.getElementById("model_name").value;
+            console.log("Selected model:", model);
+
+            const layerSelect = document.getElementById("layer_name");
+
+            // Clear existing options
+            layerSelect.innerHTML = "";
+            
+            if (metaData[model]) {
+                for (const [key, value] of Object.entries(metaData[model])) {
+                    const option = document.createElement("option");
+                    option.value = value;
+                    option.textContent = key.charAt(0).toUpperCase() + key.slice(1);
+
+                    // Add a unique ID based on the model and layer key
+                    option.id = `${model}-${key}`; 
+
+                    layerSelect.appendChild(option);
+                }
+            } else {
+                // Handle invalid metadata cases (e.g., undefined model)
+                const defaultOption = document.createElement("option");
+                defaultOption.value = "";
+                defaultOption.textContent = "No layers available";
+                layerSelect.appendChild(defaultOption);
+            }
+        }
+
+    </script>
+
+{% endblock %}
