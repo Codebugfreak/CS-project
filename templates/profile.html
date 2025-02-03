@@ -21,4 +21,28 @@
       <a class="go-back" href="/">Go Back</a>
     </div>
   </div>
+
+  </b><p><ul>User Formulations</ul></p><b>
+
+  {% if formulations %}
+      <table border="1">
+          <tr>
+              <th>Date</th>
+              <th>Ingredients</th>
+              <th>Compatibility Score</th>
+          </tr>
+          {% for formulation in formulations %}
+          <tr>
+              <td>{{ formulation.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+              <td>{{ formulation.ingredients }}</td>
+              <td>{{ formulation.compatibility_score }}%</td>
+          </tr>
+          {% endfor %}
+      </table>
+  {% else %}
+      <p>No formulations found.</p>
+  {% endif %}
+
+
 {% endblock %}
+

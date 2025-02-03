@@ -2,25 +2,72 @@
 {% block title %}Phytochemical Query{% endblock %}
 
 {% block content %}
-    <h2 class="page-title">Phytochemical Query</h2>
-    <form autocomplete="off" method="POST" action="/phytochemical" id="phytochemical-query-form">
-        <label for="query" class="query-label">Enter a Phytochemical Name or SMILES:</label>
-        <input type="text" name="query" id="query" class="query-input" required>
-        <button type="submit" class="query-button">Search</button>
-    </form>
+<h2 class="page-title">Phytochemical Query</h2>
 
-    {% if compound_info %}
-        <div id="results-box" class="results-box">
-            
-            <p><strong>IUPAC Name:</strong> {{ compound_info.iupac_name }}</p>
-            <p><strong>Molecular Formula:</strong> {{ compound_info.molecular_formula }}</p>
-            <p><strong>Canonical SMILES:</strong> {{ compound_info.canonical_smiles }}</p>
-            <p><strong>Classification:</strong> {{ classification }}</p>
-            <h4 style="text-decoration: underline;">Structural Analysis</h4>
-            <ul>
-                <li><strong>Atom Counts:</strong> {{ parsed_data.atom_counts }}</li>
-                <li><strong>Bond Counts:</strong> {{ parsed_data.bond_counts }}</li>
-            </ul>
-        </div>
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
     {% endif %}
+{% endwith %}
+
+<!-- Search Form -->
+<form autocomplete="off" method="POST" action="/phytochemical" id="phytochemical-query-form">
+    <label for="query" class="query-label">Enter a Phytochemical Name or SMILES:</label>
+    <input type="text" name="query" id="query" class="query-input" required>
+    <button type="submit" class="query-button">Search</button>
+</form>
+
+<!-- Results Section -->
+{% if compound_info %}
+    <div id="results-box" class="results-box">
+        <!-- Basic Compound Information -->
+        <p><u><strong>Compound Information</strong></u></p>
+        <p><strong>IUPAC Name:</strong> {{ compound_info.iupac_name or "Not available" }}</p>
+        <p><strong>Molecular Formula:</strong> {{ compound_info.molecular_formula or "Not available" }}</p>
+        <p><strong>Canonical SMILES:</strong> {{ compound_info.canonical_smiles or "Not available" }}</p>
+        <p><strong>Classification:</strong> {{ classification or "Not classified" }}</p>
+
+        <!-- Benchmark Information -->
+        <p><u><strong>Benchmark Compound</strong></u></p>
+        <p><strong>Benchmark SMILES:</strong> {{ benchmark_smiles or "Not available" }}</p>
+        <p><strong>Benchmark Score:</strong> {{ benchmark_score or "Not available" }}</p>
+
+        <!-- Structural Analysis -->
+        <p><u><strong>Structural Analysis</strong></u></p>
+        {% if parsed_data and "error" not in parsed_data %}
+            <ul>
+                <li><strong>Atom Counts:</strong> {{ parsed_data.atom_counts or "Not available" }}</li>
+                <li><strong>Bond Counts:</strong> {{ parsed_data.bond_counts or "Not available" }}</li>
+                <li><strong>Compound Score:</strong> {{ parsed_data.compound_score or "Not available" }}</li>
+                <li><strong>Normalized Score (Z-Score):</strong> {{ parsed_data.z_score or "Not available" }}</li>
+                <li><strong>Prone to Oxidation:</strong> {{ "Yes" if parsed_data.prone_to_oxidation else "No" }}</li>
+                <li><strong>Prone to Reduction:</strong> {{ "Yes" if parsed_data.prone_to_reduction else "No" }}</li>
+            </ul>
+        {% else %}
+            <p>Error in structural analysis: {{ parsed_data.error if parsed_data else "No data available" }}</p>
+        {% endif %}
+
+        <!-- Bioactivities -->
+        <p><u><strong>Bioactivities</strong></u></p>
+        {% if bioactivities and bioactivities|length > 0 %}
+            <ul>
+                {% for bio in bioactivities %}
+                    <li>
+                        <p><strong>Assay Type:</strong> {{ bio.assay_type or "Not available" }}</p>
+                        <p><strong>Target:</strong> {{ bio.target or "Not available" }}</p>
+                        <p><strong>Target Type:</strong> {{ bio.target_type or "Not available" }}</p>
+                        <p><strong>Activity Outcome:</strong> {{ bio.activity_outcome or "Not available" }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No bioactivity data available for this compound.</p>
+        {% endif %}
+    </div>
+{% endif %}
 {% endblock %}

@@ -9,3 +9,5 @@ def normalize_path(path):
     if path:
         return path.replace("\\", "/")
     return None
+
+

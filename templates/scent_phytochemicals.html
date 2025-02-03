@@ -10,14 +10,33 @@
     <button type="submit" class="query-button">Submit</button>
 </form>
 
-{% if phytochemical_details %}
+{% if phytochemicals %}
 <div id="results-box" class="results-box">
-    <h3>Phytochemical Details:</h3>
-    <ul>
-        {% for detail in phytochemical_details %}
-        <li>{{ detail }}</li>
-        {% endfor %}
-    </ul>
+    <h3>Phytochemical Compatibility</h3>
+    <p><strong>Phytochemicals:</strong> {{ phytochemicals }}</p>
+    <p><strong>Compatibility Score:</strong> {{ compatibility_score }}</p>
+
+    <h4>Details:</h4>
+    <table class="results-table">
+        <thead>
+            <tr>
+                <th>Compound</th>
+                <th>Molecular Formula</th>
+                <th>Molecular Weight</th>
+                <th>SMILES</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in dataset %}
+            <tr>
+                <td>{{ row['Compound'] }}</td>
+                <td>{{ row['Molecular Formula'] }}</td>
+                <td>{{ row['Molecular Weight'] }}</td>
+                <td>{{ row['SMILES'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endif %}
 {% endblock %}

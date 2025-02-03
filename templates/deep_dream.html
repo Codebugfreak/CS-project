@@ -3,7 +3,7 @@
 
 
 {% block content %}
-<h1 class="page-title">Deep Dream Generator</h1>
+<h1 class="page-title">Modify Your Logo</h1>
     <div class="deep-dream-container">
         <div class="form-section">
             <form autocomplete="off" autofocus method="POST" enctype="multipart/form-data">
@@ -37,13 +37,7 @@
                     <option value="grayscale">Grayscale</option>
                 </select><br><br>
 
-                <div class="form-section">
-                    <label for="animation">
-                        Generate Animation <input type="checkbox" name="animation" id="animation"> 
-                    </label><br><br>
-                </div>
-
-                <button type="submit" class="btn">Generate Deep Dream</button>
+                <button type="submit" class="btn">Apply Deep Dream</button>
             </form>
         </div>
         {% if output_path %}
@@ -51,7 +45,7 @@
             <h4>Generated Result:</h4>
             <div>
                 <img src="{{ url_for('static', filename=output_path.split('static/')[-1]) }}" 
-                    alt="Deep Dream {{ 'Animation' if output_path.endswith('.gif') else 'Image' }}" 
+                    alt='Image'
                     class="dream-image">
             </div>
             <div>

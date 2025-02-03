@@ -2,31 +2,97 @@
 {% block title %}Scent Creator{% endblock %}
 
 {% block content %}
-    <h2 class="page-title">Create Your Custom Scent</h2>
-    <form method="POST" action="/scent" id="scent-form">
-        <label for="product_type" class="query-label">Choose a Product Type:</label>
-        <select name="product_type" id="product_type" required class="query-input">
-            <option value="natural cream">Natural Cream</option>
-            <option value="perfume">Perfume</option>
-            <option value="perfume oil">Perfume Oil</option>
-            <option value="hair growth cream">Hair Growth Cream</option>
-        </select><br><br>
+<h2 class="page-title">Create Your Custom Scent</h2>
 
-        <label for="ingredients" class="query-label">Enter Ingredients (comma-separated):</label>
-        <input type="text" name="ingredients" id="ingredients" placeholder="e.g., Ginger Oil, Clove Oil" class="query-input"><br><br>
+<!-- Form Start -->
+<form method="POST" action="/scent" id="scent-form">
+    <label for="product_type" class="query-label">Choose a Product Type:</label>
+    <select name="product_type" id="product_type" required class="query-input">
+        <option value="natural cream">Natural Cream</option>
+        <option value="perfume">Perfume</option>
+        <option value="perfume oil">Perfume Oil</option>
+        <option value="hair growth cream">Hair Growth Cream</option>
+    </select><br><br>
 
-        <button type="submit" class="query-button">Submit</button>
-    </form>
+    <label for="ingredients" class="query-label">Enter Ingredients:</label>
+    <input type="text" name="ingredients" id="ingredients" 
+           placeholder="Start typing a plant name..." 
+           class="query-input" autocomplete="off"
+           list="plant-suggestions">
+    <datalist id="plant-suggestions"></datalist>
+    <small class="helper-text">Verified plant names will auto-complete</small>
+    <br><br>
 
-    {% if ingredients %}
-        <div id="results-box" class="results-box">
+    <label for="strategy" class="query-label">Select Analysis Strategy:</label>
+    <select name="strategy" id="strategy" required class="query-input">
+        <option value="random">Random (1 Phytochemical per Plant)</option>
+        <option value="parallel">Parallel (All Phytochemicals, Equalized)</option>
+    </select><br><br>
+
+    <button type="submit" class="query-button">Submit</button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('ingredients');
+        const datalist = document.getElementById('plant-suggestions');
+
+        
+        input.addEventListener('input', async function(e) {
+            const searchTerm = e.target.value.trim();
+            if (searchTerm.length < 2) return;
             
-            <p><strong>Product Type:</strong> {{ product_type }}</p>
-            <ul>
-                <li><strong>Ingredients:</strong> {{ ingredients }}</li>
-                <li><strong>Suggested Formulation:</strong> {{ suggested_formulation }}</li>
-                <li><strong>Compatibility Score:</strong> {{ compatibility_score }}</li>
-            </ul>
-        </div>
-    {% endif %}
+            try {
+                const response = await fetch(`/api/plants?q=${encodeURIComponent(searchTerm)}`);
+                // In your input event listener
+                const plants = await response.json();
+                const limitedPlants = plants.slice(0, 10);  // Show top 10 matches
+                datalist.innerHTML = limitedPlants.map(plant => 
+                    `<option value="${plant}">${plant}</option>`
+                ).join('');
+            } catch (error) {
+                console.error('Error fetching plant suggestions:', error);
+            }
+        });
+    });
+    </script>    
+
+<!-- Form End -->
+
+<!-- Results Box -->
+{% if compatibility_score %}
+    <div id="results-box" class="results-box">
+        <p><strong><ul>Compatibility Results</ul></strong></p>
+        <p><strong>Product Type:</strong> {{ product_type }}</p>
+        <p><strong>Ingredients:</strong> {{ ingredients }}</p>
+        <p><strong>Compatibility Score:</strong> {{ compatibility_score }}</p>
+        
+        <p>{{ message }}</p>
+
+
+        {% if recommendations %}
+            <p><strong>Alternative Recommendations:</strong></p>
+            <div class="horizontal-list">
+                {% for recommendation in recommendations %}
+                    <span class="recommendation-item">{{ recommendation }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+{% elif message %}
+    <div id="results-box" class="results-box">
+        <h3>No Results Found</h3>
+        <p>{{ message }}</p>
+    </div>
+{% endif %}
+
+<!-- JavaScript to Trim Input -->
+<script>
+document.getElementById("scent-form").addEventListener("submit", function() {
+    let ingredientsInput = document.getElementById("ingredients");
+    ingredientsInput.value = ingredientsInput.value.trim(); // Remove extra spaces
+});
+</script>
+
 {% endblock %}
