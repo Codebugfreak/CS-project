@@ -3,5 +3,13 @@ flask-sqlalchemy
 bcrypt
 tensorflow
 numpy
+pandas
+scikit-learn
+rdkit
 opencv-python
 imageio
+requests
+uuid
+werkzeug
+re
+gunicorn  # (For production deployment, optional)
